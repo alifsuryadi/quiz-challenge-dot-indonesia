@@ -52,8 +52,8 @@
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/yourusername/quiz-app.git
-   cd quiz-app
+   git clone https://github.com/alifsuryadi/quiz-challenge-dot-indonesia.git
+   cd quiz-challenge-dot-indonesia
    ```
 2. **Install dependencies:**
 
@@ -70,7 +70,7 @@
 
    ```
 
-   > **NOTE**: The application will be available at `http://localhost:3000.`
+   > **NOTE**: The application will be available at `http://localhost:5173.`
 
 ## Usage
 

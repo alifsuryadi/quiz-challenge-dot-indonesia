@@ -1,4 +1,3 @@
-// components/quiz.jsx
 import { useContext, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -24,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
   timer: {
     marginBottom: theme.spacing(2),
     textAlign: "right",
+  },
+  questionInfo: {
+    marginBottom: theme.spacing(2),
+    textAlign: "left",
   },
   answerButton: {
     margin: theme.spacing(2, 0), // Margin between answer buttons
@@ -97,6 +100,9 @@ const Quiz = () => {
         <Typography variant="h6" className={classes.timer}>
           Time Remaining: {timer}s
         </Typography>
+        <Typography variant="h6" className={classes.questionInfo}>
+          Question {currentQuestionIndex + 1}/{questions.length}
+        </Typography>
         <Typography variant="h5" style={{ margin: "16px 0" }}>
           {currentQuestion.question}
         </Typography>
@@ -106,7 +112,7 @@ const Quiz = () => {
             fullWidth
             variant="contained"
             color="primary"
-            style={{ margin: "2px 0" }}
+            className={classes.answerButton}
             onClick={() =>
               handleAnswer(answer === currentQuestion.correct_answer)
             }

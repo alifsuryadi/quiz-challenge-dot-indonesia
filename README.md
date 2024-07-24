@@ -33,14 +33,13 @@
 
 ## File and Folder Structure
 
-| File/Folder Name             | Description                        |
-| ---------------------------- | ---------------------------------- |
-| `src/App.jsx`                | Main application component.        |
-| `src/main.jsx`               | Entry point of the application.    |
-| `src/components/Login.jsx`   | Component for the login page.      |
-| `src/components/Quiz.jsx`    | Component for the quiz page.       |
-| `src/components/Results.jsx` | Component for the results page.    |
-| `public/index.html`          | HTML template for the application. |
+| File/Folder Name             | Description                     |
+| ---------------------------- | ------------------------------- |
+| `src/App.jsx`                | Main application component.     |
+| `src/main.jsx`               | Entry point of the application. |
+| `src/components/Login.jsx`   | Component for the login page.   |
+| `src/components/Quiz.jsx`    | Component for the quiz page.    |
+| `src/components/Results.jsx` | Component for the results page. |
 
 ## Components
 

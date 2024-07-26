@@ -1,3 +1,4 @@
+// components/results.jsx
 import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../App";
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Results = () => {
   const classes = useStyles();
-  const { user, setQuizState } = useContext(AuthContext);
+  const { user, setUser, setQuizState } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
   const { score, total } = location.state;
@@ -36,6 +37,17 @@ const Results = () => {
       questions: [],
     });
     navigate("/quiz");
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    setQuizState({
+      currentQuestionIndex: 0,
+      score: 0,
+      timer: 60,
+      questions: [],
+    });
+    navigate("/login");
   };
 
   return (
@@ -55,6 +67,14 @@ const Results = () => {
           style={{ margin: "20px 0" }}
         >
           Retry Quiz
+        </Button>
+        <Button
+          fullWidth
+          variant="contained"
+          color="warning"
+          onClick={handleLogout}
+        >
+          Logout
         </Button>
       </Paper>
     </div>

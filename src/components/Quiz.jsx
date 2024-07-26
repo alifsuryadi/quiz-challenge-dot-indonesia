@@ -1,3 +1,4 @@
+// components/Quiz.jsx
 import { useContext, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -5,21 +6,22 @@ import { Typography, Button, Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { AuthContext } from "../App";
 import he from "he";
+import LoadingSpinner from "./LoadingSpinner"; // Import the LoadingSpinner component
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100vh", // Full height of the viewport
+    height: "100vh",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f5f5f5", // Grayish-white background
+    backgroundColor: "#f5f5f5",
   },
   paper: {
     padding: theme.spacing(4),
     width: "100%",
     maxWidth: "600px",
-    textAlign: "center", // Center text horizontally
-    margin: "0 20px", // Margin to ensure it looks good on small screens
+    textAlign: "center",
+    margin: "0 20px",
   },
   timer: {
     marginBottom: theme.spacing(2),
@@ -30,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "left",
   },
   answerButton: {
-    margin: theme.spacing(2, 0), // Margin between answer buttons
+    margin: theme.spacing(2, 0),
   },
 }));
 
@@ -87,7 +89,7 @@ const Quiz = () => {
     }
   };
 
-  if (!questions || questions.length === 0) return <div>Loading...</div>;
+  if (!questions || questions.length === 0) return <LoadingSpinner />;
 
   const currentQuestion = questions[currentQuestionIndex];
   const answers = [

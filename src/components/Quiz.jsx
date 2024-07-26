@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Typography, Button, Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { AuthContext } from "../App";
+import he from "he";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -104,7 +105,7 @@ const Quiz = () => {
           Question {currentQuestionIndex + 1}/{questions.length}
         </Typography>
         <Typography variant="h5" style={{ margin: "16px 0" }}>
-          {currentQuestion.question}
+          {he.decode(currentQuestion.question)}
         </Typography>
         {answers.map((answer) => (
           <Button
@@ -113,11 +114,12 @@ const Quiz = () => {
             variant="contained"
             color="primary"
             className={classes.answerButton}
+            style={{ margin: "5px 0px" }}
             onClick={() =>
               handleAnswer(answer === currentQuestion.correct_answer)
             }
           >
-            {answer}
+            {he.decode(answer)}
           </Button>
         ))}
       </Paper>

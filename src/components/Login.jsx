@@ -1,12 +1,21 @@
-// components/Login.jsx
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../App";
-import { TextField, Button, Typography, Paper } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Typography,
+  Paper,
+  IconButton,
+  InputAdornment,
+} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+// toggle visibility password hanya muncul double di dev env saja
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,6 +63,7 @@ const Login = () => {
   const classes = useStyles();
   const { setUser, setQuizState } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     handleSubmit,
@@ -73,6 +83,8 @@ const Login = () => {
     });
     navigate("/quiz");
   };
+
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
 
   return (
     <div className={classes.root}>
@@ -115,9 +127,22 @@ const Login = () => {
                 required
                 fullWidth
                 label="Password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 error={!!errors.password}
                 helperText={errors.password ? errors.password.message : ""}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
             )}
           />

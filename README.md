@@ -7,6 +7,7 @@
 ![Material-UI](https://img.shields.io/badge/-Material--UI-05122A?style=flat&logo=material-ui)&nbsp;
 ![React Router](https://img.shields.io/badge/-React%20Router-05122A?style=flat&logo=react-router)&nbsp;
 ![Axios](https://img.shields.io/badge/-Axios-05122A?style=flat&logo=axios)&nbsp;
+![Zod](https://img.shields.io/badge/-Zod-05122A?style=flat&logo=zod)&nbsp;
 
 </div>
 

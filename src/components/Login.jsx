@@ -1,8 +1,12 @@
-import { useState, useContext } from "react";
+// components/Login.jsx
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../App";
 import { TextField, Button, Typography, Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { useForm, Controller } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,24 +32,46 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Define schema using Zod
+const schema = z.object({
+  username: z
+    .string()
+    .min(8, { message: "Username must be at least 8 characters" })
+    .regex(/^[a-z|0-9]+$/, {
+      message: "Username must contain only lowercase letters without spaces",
+    })
+    .regex(/^\S*$/, { message: "Username must not contain spaces" }), // No spaces allowed
+  password: z
+    .string()
+    .min(8, { message: "Password must be at least 8 characters" })
+    .regex(/[a-z|A-Z]/, {
+      message: "Password must contain at least one letter",
+    })
+    .regex(/[0-9]/, { message: "Password must contain at least one number" }),
+});
+
 const Login = () => {
   const classes = useStyles();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const { setUser, setQuizState } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (username && password) {
-      setUser({ username });
-      setQuizState({
-        currentQuestionIndex: 0,
-        score: 0,
-        timer: 60,
-        questions: [],
-      });
-      navigate("/quiz");
-    }
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
+
+  const onSubmit = (data) => {
+    setUser({ username: data.username });
+    setQuizState({
+      currentQuestionIndex: 0,
+      score: 0,
+      timer: 60,
+      questions: [],
+    });
+    navigate("/quiz");
   };
 
   return (
@@ -54,33 +80,53 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            label="Username"
-            autoFocus
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+        <form
+          className={classes.form}
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <Controller
+            name="username"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <TextField
+                {...field}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                label="Username"
+                error={!!errors.username}
+                helperText={errors.username ? errors.username.message : ""}
+                autoFocus
+              />
+            )}
           />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+          <Controller
+            name="password"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <TextField
+                {...field}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                label="Password"
+                type="password"
+                error={!!errors.password}
+                helperText={errors.password ? errors.password.message : ""}
+              />
+            )}
           />
           <Button
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handleLogin}
+            type="submit"
             style={{ margin: "20px 0" }}
           >
             Login

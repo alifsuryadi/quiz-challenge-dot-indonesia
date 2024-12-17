@@ -52,26 +52,53 @@
 ## Setup
 
 1. **Clone the repository:**
+
    ```sh
    git clone https://github.com/alifsuryadi/quiz-challenge-dot-indonesia.git
    cd quiz-challenge-dot-indonesia
    ```
-2. **Install dependencies:**
 
-   ```sh
-   npm install pnpm
-   pnpm install
+2. **Copy the environment file:**
 
-   ```
+- Duplicate the `.env.example` file and rename it to `.env`:
 
-3. **Start the development server:**
+```sh
+cp .env.example .env
+```
 
-   ```sh
-   pnpm run dev
+- Edit the `.env` file as needed, especially the `VITE_QUIZ_API_URL` variable:
 
-   ```
+```sh
+VITE_QUIZ_API_URL=https://example.com/api
+```
 
-   > **NOTE**: The application will be available at `http://localhost:5173.`
+3. **Install dependencies:**
+
+- Run the following command to install dependencies:
+
+  ```sh
+  npm install pnpm
+  pnpm install
+  ```
+
+- If you encounter the following error:
+  ```
+  npm ERR! ERESOLVE unable to resolve dependency tree
+  ```
+  > This error happens because of dependency conflicts (e.g., `react@18.3.1` and `@material-ui/core@4.12.4`).
+  > **Solution**: Run the following command to bypass peer dependency checks:
+  >
+  > ```
+  > pnpm install --shamefully-hoist
+  > ```
+
+4. **Start the development server:**
+
+```sh
+  pnpm run dev
+```
+
+> **NOTE**: The application will be available at `http://localhost:5173.`
 
 ## Usage
 

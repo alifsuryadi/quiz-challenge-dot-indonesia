@@ -45,9 +45,8 @@ const Quiz = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       if (!questions || questions.length === 0) {
-        const res = await axios.get(
-          process.env.REACT_APP_QUIZ_API_URL
-        );
+        const res = await axios.get(import.meta.env.VITE_QUIZ_API_URL);
+
         setQuizState((prevState) => ({
           ...prevState,
           questions: res.data.results,

@@ -46,7 +46,7 @@ const Quiz = () => {
     const fetchQuestions = async () => {
       if (!questions || questions.length === 0) {
         const res = await axios.get(
-          "https://opentdb.com/api.php?amount=10&type=multiple"
+          process.env.REACT_APP_QUIZ_API_URL
         );
         setQuizState((prevState) => ({
           ...prevState,
